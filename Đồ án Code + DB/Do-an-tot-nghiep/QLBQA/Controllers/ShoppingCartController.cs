@@ -59,6 +59,11 @@ namespace QLBQA.Controllers
                 else
                 {
                     ProductDetail hh = db.ProductDetails.SingleOrDefault(p => p.ProductDetailID == productDetailID);
+                    if(hh.Quantity <= 0)
+                    {
+                        TempData["Error"] = "Sản phẩm này đã hết hàng";
+                        return Json(new { success = false });
+                    }
                     item = new CartItem
                     {
                         amount = cartItem.amount,
